@@ -1,0 +1,21 @@
+{ "private": true
+, "name": "tic-tac-toe"
+, "version": "0.0.1"
+, "dependencies":
+  {
+    "js-yaml": "~2.0.0"
+    , "express": "3.x"
+    , "coffee-script-redux": "2.0.0-beta7"
+    ,"underscore": "~1.5.2"
+
+  }
+, "devDependencies":
+  {
+
+  }
+, "repository": {
+    "type": "git"
+  }
+, "optionalDependencies": {}
+, "engines": { "node": ">=0.8" }
+}
