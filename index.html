@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Tic Tac Toe Game </title>
+    <script src="src/lib/jquery-min.js"></script>
+    <script src="src/lib/underscore.js"></script>
+    <script src="src/lib/backbone.js"></script>
+    <script src="src/views/game.js"></script>
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+  <body>
+  <div id = "tic-tac-toe"> 
+    <div id ="grid-length-option">
+    </div>  
+      <div id="players">
+        <div id="X" class="">Player X</div>
+        <div id="O" class="">Player O</div>
+        <input type="button" class="button" value="New Game">
+        <input type="button" class="button" value="End Game">
+      </div>
+      <div id = "grid"></div>
+      <script type="text/template" id="grid-length-option-template">
+        <select>
+          <% for (var i = 3; i <= length; i++) { %>
+          <option><%=i%></option>
+          <% } %>
+        </select>
+      </script>
+
+      <script type="text/template" id="grid-template">
+        <table>
+          <tbody>
+          <% for (var i = 0; i < parseInt(length)*parseInt(length); i+=parseInt(length)) { %>
+            <tr>
+              <% for (var j = i; j < i+parseInt(length); j++) { %>
+                <td id="<%=j%>"></td>
+              <% } %>
+            </tr>
+          <% } %>
+          </tbody>
+        </table>
+      </script>
+
+      <script>
+        $(document).ready(function() {
+            var gameView;
+            return gameView = new GameView();
+        });
+      </script>
+  </div>
+  </body>
+
+</html>
