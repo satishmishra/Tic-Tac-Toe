@@ -29,6 +29,7 @@ GameView = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this.gameOver = false;
     this.moveCount = 0;
     this.gridSize = 3;
     this.board = new Array(9);
@@ -86,6 +87,7 @@ GameView = (function(_super) {
 
   GameView.prototype.createBoard = function() {
     var i, _results;
+    this.gameOver = false;
     this.moveCount = 0;
     i = 0;
     _results = [];
@@ -99,6 +101,12 @@ GameView = (function(_super) {
 
   GameView.prototype.squareSelected = function(evt, currentPlayer) {
     var square, _ref, _ref1;
+    if (this.gameOver) {
+      if (confirm("Game has been over! new game?")) {
+        this.newGame();
+      }
+      return;
+    }
     square = evt.target;
     if (square.className.match(/marker/) || ((_ref = $(square).find('div')) != null ? (_ref1 = _ref.attr('class')) != null ? _ref1.match(/marker/) : void 0 : void 0)) {
       return alert("Sorry, that space is taken!  Please choose another square.");
@@ -123,7 +131,8 @@ GameView = (function(_super) {
   };
 
   GameView.prototype.declareWinner = function(currentPlayer) {
-    if (confirm("We have a " + currentPlayer + " as a winner!  New game?")) {
+    this.gameOver = true;
+    if (confirm(" " + currentPlayer + " has won!!  New game?")) {
       return this.newGame();
     }
   };
@@ -179,6 +188,7 @@ GameView = (function(_super) {
       l++;
     }
     if (this.moveCount === (Math.pow(this.gridSize, 2) - 1)) {
+      this.gameOver = true;
       if (confirm("It's a draw. New game?")) {
         return this.newGame();
       }

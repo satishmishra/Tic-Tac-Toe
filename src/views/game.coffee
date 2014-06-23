@@ -14,6 +14,7 @@ class GameView extends Backbone.View
     'mouseup input.button': 'newGame'
 
   initialize: (options = {}) ->
+    @gameOver = false
     @moveCount = 0
     @gridSize = 3
     @board=  new Array(9)
@@ -55,6 +56,7 @@ class GameView extends Backbone.View
     @renderGrid length
 
   createBoard: ->
+    @gameOver = false
     @moveCount = 0
     i = 0
 
@@ -64,6 +66,9 @@ class GameView extends Backbone.View
       i++
 
   squareSelected: (evt, currentPlayer) ->
+    if @gameOver 
+      @newGame()  if confirm "Game has been over! new game?"
+      return
     square = evt.target
     
     if square.className.match(/marker/) or $(square).find('div')?.attr('class')?.match(/marker/)
@@ -88,7 +93,8 @@ class GameView extends Backbone.View
     @moveCount++
     
   declareWinner: (currentPlayer)->
-    @newGame()  if confirm("We have a #{currentPlayer} as a winner!  New game?")
+    @gameOver = true
+    @newGame()  if confirm(" #{currentPlayer} has won!!  New game?")
 
   
   checkForWinner: (index, currentPlayer)->
@@ -136,7 +142,9 @@ class GameView extends Backbone.View
       l++
 
     if @moveCount is (Math.pow(@gridSize, 2)-1)
+      @gameOver = true
       @newGame()  if confirm("It's a draw. New game?")
+
 
   getCurrentPlayer :->
     document.querySelector(".current-player").id
